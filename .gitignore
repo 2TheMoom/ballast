@@ -1,0 +1,34 @@
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.env
+node_modules
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+/context
+*.compiled.js
+package-lock.json
+
+
+# Ballast
+node_modules/
+.next/
+.env
+.env.local
+frontend/tsconfig.tsbuildinfo
+frontend/.vercel/
+artifacts/
+scripts/e2e.out
+scripts/*.out
+__pycache__/
+.pytest_cache/
