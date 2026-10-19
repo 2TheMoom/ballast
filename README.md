@@ -71,6 +71,28 @@ The real app, driven in headless Chrome through a wallet shim that signs with a 
 
 Screenshots of the run are in `scripts/ui-r5/`. The run also found a real bug that unit tests could not: the register page's browser test read each balance at its own block, so a moving token like WETH showed 99.99%. It now pins every read of a chain to one block, the way the validators do.
 
+## Live run in a real MetaMask
+
+The deployed app (https://ballast-frontend.vercel.app) was driven with the real MetaMask extension and one account (`0x1a87...e5fb`), monitor `mm-weth-base-1`, against the contract above. The page was driven by a browser tool and every transaction was approved by hand in MetaMask's own window. This is the run a wallet-shim cannot replace: the connect dialog found MetaMask by wallet discovery, and every write showed the same progress notes under real approvals.
+
+| # | Step | Transaction | What the page showed |
+|---|---|---|---|
+| 1 | Register the monitor | [`0xc0654babfc`](https://explorer-bradbury.genlayer.com/tx/0xc0654babfc42e586e373d82abb12d794c1a1c551fe3c41093bfe200bdee7c08d) | Registered `mm-weth-base-1`: WETH on Base, liability the same token's supply. The browser test read had shown exactly 100.00% first. |
+| 2 | First attestation | [`0xa99f078ec3`](https://explorer-bradbury.genlayer.com/tx/0xa99f078ec38dd0d166208a4c524dd45fcb5cb7401a66469859bffb6de919a919) | Covered: reserves 286.02K against liabilities 286.02K, 100.00% at Base block 52,819,225. |
+| 3 | Add a reserve address | [`0xb1fb6402f8`](https://explorer-bradbury.genlayer.com/tx/0xb1fb6402f8946a289bfcea4354fb801ffb9af845f82e0da8d172c775275f5ab8) | Added `OP message passer` (Base `0x4200...0016`). |
+| 4 | Schedule its removal | [`0x413327abe7`](https://explorer-bradbury.genlayer.com/tx/0x413327abe7033a2ab0f07dc6d64244238a372331fb884d968f806b0bed6121cb) | The row showed "Removal in 23 h 44 min". |
+| 5 | Cancel the removal | [`0xa87bc6f755`](https://explorer-bradbury.genlayer.com/tx/0xa87bc6f755bdc7ff919d8df2938b7509c17c2b959b19265a4bd7f31ec38c03b2) | The countdown cleared and both rows offered Schedule removal again. |
+| 6 | Challenge the attestation | [`0x9da0b01639`](https://explorer-bradbury.genlayer.com/tx/0x9da0b01639f49a46577cb484339f990f4948c811e7be1e3a8b062b3b36dd155e) | "A reserve address is missing", probe `0x4200...0010` on Base. The monitor read Disputed. |
+| 7 | Second attestation | [`0x4c1a931c67`](https://explorer-bradbury.genlayer.com/tx/0x4c1a931c679d634b10d15705efc478fb9a3ab4c3701bd7125ae56ff78b4d676a) | The dispute cleared, the monitor read Covered, and the probe was shown and not counted. |
+
+Read straight from the chain afterwards, every one of the seven transactions is `FINALIZED` with `AGREE` and `FINISHED_WITH_RETURN`, and the contract's own answer is the page's answer:
+
+- `get_latest`: covered, not disputed, sequence 2, ratio 24,132 bps (241.32%). The ratio rose from 100.00% because the added address holds ETH, which counts from the next attestation, as the form says.
+- `get_monitor`: two reserve addresses, no pending removal (the cancelled one is gone), one challenge in total, none open, version 2.
+- The full machine-readable result is `scripts/ui-mm/result.json`, written by `scripts/mm-finality.mjs`.
+
+What it found: no bug in the app. What it did show is how slow validators can be. The schedule-removal transaction sat in `PROPOSING` and then `COMMITTING` for about twelve minutes before it was accepted, and the app kept saying "Accepted by validators" was still to come, which was true. The next write waited its turn behind it because this contract's transactions are processed in order.
+
 ## Using a monitor from another contract
 
 ```python

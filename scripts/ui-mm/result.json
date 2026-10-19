@@ -1,0 +1,98 @@
+{
+ "monitor": "mm-weth-base-1",
+ "ballast": "0xd1590EBBA44Cd2d00e003053811E47b9d2209668",
+ "started": "2026-10-19T17:07:28.226Z",
+ "steps": [
+  {
+   "name": "register the monitor",
+   "hash": "0xc0654babfc42e586e373d82abb12d794c1a1c551fe3c41093bfe200bdee7c08d",
+   "status": "FINALIZED",
+   "result": "AGREE",
+   "exec": "FINISHED_WITH_RETURN"
+  },
+  {
+   "name": "first attestation",
+   "hash": "0xa99f078ec38dd0d166208a4c524dd45fcb5cb7401a66469859bffb6de919a919",
+   "status": "FINALIZED",
+   "result": "AGREE",
+   "exec": "FINISHED_WITH_RETURN"
+  },
+  {
+   "name": "add a reserve address",
+   "hash": "0xb1fb6402f8946a289bfcea4354fb801ffb9af845f82e0da8d172c775275f5ab8",
+   "status": "FINALIZED",
+   "result": "AGREE",
+   "exec": "FINISHED_WITH_RETURN"
+  },
+  {
+   "name": "schedule its removal",
+   "hash": "0x413327abe7033a2ab0f07dc6d64244238a372331fb884d968f806b0bed6121cb",
+   "status": "FINALIZED",
+   "result": "AGREE",
+   "exec": "FINISHED_WITH_RETURN"
+  },
+  {
+   "name": "cancel the removal",
+   "hash": "0xa87bc6f755bdc7ff919d8df2938b7509c17c2b959b19265a4bd7f31ec38c03b2",
+   "status": "FINALIZED",
+   "result": "AGREE",
+   "exec": "FINISHED_WITH_RETURN"
+  },
+  {
+   "name": "challenge the attestation",
+   "hash": "0x9da0b01639f49a46577cb484339f990f4948c811e7be1e3a8b062b3b36dd155e",
+   "status": "FINALIZED",
+   "result": "AGREE",
+   "exec": "FINISHED_WITH_RETURN"
+  },
+  {
+   "name": "second attestation",
+   "hash": "0x4c1a931c679d634b10d15705efc478fb9a3ab4c3701bd7125ae56ff78b4d676a",
+   "status": "FINALIZED",
+   "result": "AGREE",
+   "exec": "FINISHED_WITH_RETURN"
+  }
+ ],
+ "finalizedAfterMin": "30.9",
+ "latest": {
+  "at": 1792429570,
+  "covered": true,
+  "disputed": false,
+  "exists": true,
+  "max_age": 86400,
+  "ratio_bps": 24132,
+  "seq": 2
+ },
+ "monitor_state": {
+  "count": 2,
+  "created_at": 1792427937,
+  "id": "mm-weth-base-1",
+  "last_ok_at": 1792429570,
+  "liab_chain": "base",
+  "liab_token": "4200000000000000000000000000000000000006",
+  "max_age": 86400,
+  "min_ratio_bps": 10000,
+  "n_challenges": 1,
+  "name": "Real wallet: WETH on Base",
+  "open_challenges": 0,
+  "pending": [],
+  "registrant": "0x1a870eA7c2AEC156ff84c83fa4fD30bf9D6be5fb",
+  "reserves": [
+   {
+    "asset": "native",
+    "chain": "base",
+    "holder": "4200000000000000000000000000000000000006",
+    "label": "WETH on Base"
+   },
+   {
+    "asset": "native",
+    "chain": "base",
+    "holder": "4200000000000000000000000000000000000016",
+    "label": "OP message passer"
+   }
+  ],
+  "unit_den": 1,
+  "unit_num": 1,
+  "version": 2
+ }
+}
