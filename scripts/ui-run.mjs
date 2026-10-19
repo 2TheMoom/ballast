@@ -16,7 +16,7 @@ const ev = async (expr) => {
   return r.value;
 };
 const nav = (path, wait = 7000) => post("/nav", { url: `${APP}${path}`, wait });
-const shot = (name) => post("/shot", { path: `${OUT}/${name}.png`.replace(/\//g, "\\") });
+const shot = (name) => post("/shot", { path: `${process.cwd().replace(/\\/g, "/")}/${OUT}/${name}.png` }); // the driver runs elsewhere, so the path must be absolute
 const text = () => ev("document.body.innerText");
 const log = (m) => console.log(`[${new Date().toISOString().slice(11, 19)}] ${m}`);
 const RESULTS = { tag: TAG, steps: [] };
