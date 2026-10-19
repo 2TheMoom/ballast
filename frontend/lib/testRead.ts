@@ -69,7 +69,14 @@ const pad = (a: string) => "0".repeat(24) + a;
 /** A preview of what the validators will read, from this browser. Nothing is sent on-chain. */
 export async function testRead(input: TestInput): Promise<TestResult> {
   const liab = input.liabToken;
-  const supplyCalls = await readChain(input.liabChain, [
+  // every read of a chain is at the same pinned block, as the validators do it; reading each piece at its own head would not add up
+  const pins: Partial<Record<ChainName, number>> = {};
+  const at = async (chain: ChainName, calls: [string, unknown[]][]) => {
+    const r = await readChain(chain, calls, pins[chain]);
+    pins[chain] = r.pin;
+    return r;
+  };
+  const supplyCalls = await at(input.liabChain, [
     ["eth_call", [{ to: "0x" + liab, data: "0x18160ddd" }]],
     ["eth_call", [{ to: "0x" + liab, data: "0x313ce567" }]],
   ]);
@@ -82,7 +89,7 @@ export async function testRead(input: TestInput): Promise<TestResult> {
       r.asset === "native"
         ? [["eth_getBalance", ["0x" + r.holder]]]
         : [["eth_call", [{ to: "0x" + r.asset, data: "0x70a08231" + pad(r.holder) }]], ["eth_call", [{ to: "0x" + r.asset, data: "0x313ce567" }]]];
-    const { out } = await readChain(r.chain, calls);
+    const { out } = await at(r.chain, calls);
     const raw = BigInt(out[0]);
     const dec = r.asset === "native" ? 18 : Number(BigInt(out[1]));
     const value = (raw * BigInt(10) ** BigInt(ldec) * BigInt(input.unitNum)) / (BigInt(10) ** BigInt(dec) * BigInt(input.unitDen));
