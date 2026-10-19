@@ -10,7 +10,9 @@ cannot prove and the threats considered are in [docs/ARCHITECTURE.md](docs/ARCHI
 | Contract | Address |
 |---|---|
 | Ballast | [`0xd1590EBBA44Cd2d00e003053811E47b9d2209668`](https://explorer-bradbury.genlayer.com/address/0xd1590EBBA44Cd2d00e003053811E47b9d2209668) |
-| GateExample (a consumer pinned to one monitor) | see the live run log in `scripts/` |
+| GateExample, pinned to the `e2e-v2-covered` monitor | [`0x31e3dB2757aEF9A882bB0642674c03952BA492EB`](https://explorer-bradbury.genlayer.com/address/0x31e3dB2757aEF9A882bB0642674c03952BA492EB) |
+
+Live app: **https://ballast-frontend.vercel.app**
 
 ## What a reading looks like
 
