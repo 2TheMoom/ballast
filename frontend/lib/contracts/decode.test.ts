@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { decodeAttestation, decodeChallenge, decodeHistory, decodeLatest, decodeMonitor, plain } from "./decode.ts";
 
 test("plain flattens Maps, arrays and bigints", () => {
-  const m = new Map<string, unknown>([["a", 5n], ["b", [new Map([["c", 1]])]], ["big", 10n ** 30n]]);
+  const m = new Map<string, unknown>([["a", 5n], ["b", [new Map<string, unknown>([["c", 1]])]], ["big", 10n ** 30n]]);
   assert.deepEqual(plain(m), { a: 5, b: [{ c: 1 }], big: (10n ** 30n).toString() });
 });
 
@@ -11,8 +11,8 @@ test("decodeMonitor reads a get_monitor answer", () => {
   const m = decodeMonitor(
     new Map<string, unknown>([
       ["id", "m1"], ["name", "Example"], ["registrant", "0xabc"], ["liab_chain", "ethereum"], ["liab_token", "ab".repeat(20)], ["unit_num", 1n], ["unit_den", 1n],
-      ["min_ratio_bps", 10000n], ["max_age", 86400n], ["reserves", [new Map([["chain", "base"], ["asset", "native"], ["holder", "11".repeat(20)], ["label", "Cold"]])]],
-      ["pending", [new Map([["chain", "base"], ["asset", "native"], ["holder", "11".repeat(20)], ["at", 123n]])]], ["version", 2n], ["created_at", 5n], ["last_ok_at", 6n],
+      ["min_ratio_bps", 10000n], ["max_age", 86400n], ["reserves", [new Map<string, unknown>([["chain", "base"], ["asset", "native"], ["holder", "11".repeat(20)], ["label", "Cold"]])]],
+      ["pending", [new Map<string, unknown>([["chain", "base"], ["asset", "native"], ["holder", "11".repeat(20)], ["at", 123n]])]], ["version", 2n], ["created_at", 5n], ["last_ok_at", 6n],
       ["count", 3n], ["open_challenges", 1n], ["n_challenges", 4n],
     ])
   );
