@@ -1,0 +1,85 @@
+{
+ "tag": "r5",
+ "steps": [
+  {
+   "name": "the connect dialog opens",
+   "ok": true,
+   "detail": "clicked Connect wallet"
+  },
+  {
+   "name": "connecting through the dialog shows the wallet address",
+   "ok": true
+  },
+  {
+   "name": "the register button is enabled for a valid form",
+   "ok": true
+  },
+  {
+   "name": "the browser test read shows 100.00%",
+   "ok": true
+  },
+  {
+   "name": "registering lands on the new monitor page",
+   "ok": true,
+   "detail": "/app/m/ui-r5"
+  },
+  {
+   "name": "first attestation: the Attest button is enabled",
+   "ok": true
+  },
+  {
+   "name": "first attestation: the attestation is recorded",
+   "ok": true
+  },
+  {
+   "name": "first attestation: the page shows attestation #1 at exactly 100.00%",
+   "ok": true
+  },
+  {
+   "name": "the registrant panel shows for the registrant",
+   "ok": true
+  },
+  {
+   "name": "adding a reserve address is recorded",
+   "ok": true
+  },
+  {
+   "name": "the new address is listed",
+   "ok": true
+  },
+  {
+   "name": "scheduling a removal is recorded",
+   "ok": true
+  },
+  {
+   "name": "the pending removal shows its countdown",
+   "ok": true
+  },
+  {
+   "name": "cancelling the removal is recorded",
+   "ok": true
+  },
+  {
+   "name": "the challenge dialog opens",
+   "ok": true
+  },
+  {
+   "name": "the challenge is recorded",
+   "ok": true
+  },
+  {
+   "name": "the monitor now reads Disputed",
+   "ok": true
+  },
+  {
+   "name": "the second attestation is recorded",
+   "ok": true
+  },
+  {
+   "name": "the dispute is cleared and the probe is shown, not counted",
+   "ok": true
+  }
+ ],
+ "finished": "2026-10-19T01:46:21.238Z",
+ "monitor": "ui-r5"
+}

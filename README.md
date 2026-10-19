@@ -45,6 +45,32 @@ Every attestation and the challenge reached FINALIZED, about 30 minutes after th
 
 The full event log, with every transaction hash, is in `scripts/e2e-log-v2.json`.
 
+## Live UI run
+
+The real app, driven in headless Chrome through a wallet shim that signs with a dedicated Bradbury test wallet (`scripts/ui-run.mjs`; the shim lives outside the repo). Every click goes through the real interface and every transaction is a real transaction on Bradbury, monitor `ui-r5`. All 19 steps passed:
+
+- the connect dialog opens
+- connecting through the dialog shows the wallet address
+- the register button is enabled for a valid form
+- the browser test read shows 100.00%
+- registering lands on the new monitor page
+- first attestation: the Attest button is enabled
+- first attestation: the attestation is recorded
+- first attestation: the page shows attestation #1 at exactly 100.00%
+- the registrant panel shows for the registrant
+- adding a reserve address is recorded
+- the new address is listed
+- scheduling a removal is recorded
+- the pending removal shows its countdown
+- cancelling the removal is recorded
+- the challenge dialog opens
+- the challenge is recorded
+- the monitor now reads Disputed
+- the second attestation is recorded
+- the dispute is cleared and the probe is shown, not counted
+
+Screenshots of the run are in `scripts/ui-r5/`. The run also found a real bug that unit tests could not: the register page's browser test read each balance at its own block, so a moving token like WETH showed 99.99%. It now pins every read of a chain to one block, the way the validators do.
+
 ## Using a monitor from another contract
 
 ```python
