@@ -1,0 +1,358 @@
+{
+ "run": "v2",
+ "ballast": "0xd1590EBBA44Cd2d00e003053811E47b9d2209668",
+ "started": "2026-10-18T23:43:25.609Z",
+ "gates": {
+  "e2e-v2-covered": "0x31e3dB2757aEF9A882bB0642674c03952BA492EB",
+  "e2e-v2-strict": "0x06C4fe89d7Cd8A0342b636823Df208AeAc3bbaD0",
+  "e2e-v2-challenge": "0x60bD83Aa0d907E5487fe5cfe1439179e7626aE01"
+ },
+ "events": [
+  {
+   "t": "2026-10-18T23:43:38.184Z",
+   "scn": "covered",
+   "msg": "register 0xd83d9b53e8 ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "register",
+   "hash": "0xd83d9b53e8b6d337cffd677048fb0340db00dd3615c4a2fe16e0ac8085f935c4",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-18T23:43:50.653Z",
+   "scn": "strict",
+   "msg": "register 0xd479e15b7c ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "register",
+   "hash": "0xd479e15b7c044c1a80880055f2ff438d4fbace415d1c3cd6ebd53fd16d9071b3",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-18T23:44:02.870Z",
+   "scn": "challenge",
+   "msg": "register 0xe6e858899c ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "register",
+   "hash": "0xe6e858899ca2b00c824a2ba15715399d330385d856353c92db3943dc9a97b5fa",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-18T23:44:15.845Z",
+   "scn": "twochains",
+   "msg": "register 0x2811045658 ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "register",
+   "hash": "0x281104565849c12d4630ffeac46fcadc89ee90645e3b65a5536d3a462973232a",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-18T23:44:38.462Z",
+   "scn": "twochains",
+   "msg": "attest #1 0x3925be681c ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "attest",
+   "hash": "0x3925be681cf47ab2b3e729adf8f3d336e941bf8191a9249e8157340312191891",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-18T23:44:39.476Z",
+   "scn": "twochains",
+   "msg": "ratio 11297 bps, ethereum 26222784, base 52788736"
+  },
+  {
+   "t": "2026-10-18T23:44:48.864Z",
+   "scn": "erc20",
+   "msg": "register 0xcdb50b0aa6 ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "register",
+   "hash": "0xcdb50b0aa670ae265e5ad87dc5542b8f7cbc51759a23f23d3fffbb5065304c15",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-18T23:45:01.506Z",
+   "scn": "covered",
+   "msg": "gate deployed for e2e-v2-covered: 0x31e3dB2757aEF9A882bB0642674c03952BA492EB"
+  },
+  {
+   "t": "2026-10-18T23:45:11.541Z",
+   "scn": "erc20",
+   "msg": "attest #1 0x3d82f53df0 ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "attest",
+   "hash": "0x3d82f53df0344d736b0d27b98faf7c0c56f69735016f9620ba89a44e1f1efa33",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-18T23:45:12.595Z",
+   "scn": "erc20",
+   "msg": "ratio 12466 bps (stETH per wstETH is above 1), lines [\"4605849701290697215004334\"]"
+  },
+  {
+   "t": "2026-10-18T23:45:14.350Z",
+   "scn": "strict",
+   "msg": "gate deployed for e2e-v2-strict: 0x06C4fe89d7Cd8A0342b636823Df208AeAc3bbaD0"
+  },
+  {
+   "t": "2026-10-18T23:45:27.058Z",
+   "scn": "challenge",
+   "msg": "gate deployed for e2e-v2-challenge: 0x60bD83Aa0d907E5487fe5cfe1439179e7626aE01"
+  },
+  {
+   "t": "2026-10-18T23:45:33.934Z",
+   "scn": "covered",
+   "msg": "attest #1 0x01418116b0 ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "attest",
+   "hash": "0x01418116b0c10fdc5dfa331273e80cba44e7ebc5b7fa3611b0955d2ddd498d57",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-18T23:45:34.896Z",
+   "scn": "covered",
+   "msg": "ratio 10000 bps, covered=true, ethereum block 26222789",
+   "att": {
+    "at": 1792367112,
+    "blocks": {
+     "ethereum": {
+      "hash": "0xa73857a7406e653ec54d10594dedb06fcb0707133d911062b7da366c8235f429",
+      "number": 26222789
+     }
+    },
+    "covered": true,
+    "disputed": false,
+    "liab_decimals": 18,
+    "liabilities": "2203619454916505242620104",
+    "lines": [
+     {
+      "asset": "native",
+      "chain": "ethereum",
+      "decimals": 18,
+      "holder": "c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "label": "WETH9 contract",
+      "raw": "2203619454916505242620104",
+      "value": "2203619454916505242620104"
+     }
+    ],
+    "probe": null,
+    "ratio_bps": 10000,
+    "reserves_total": "2203619454916505242620104",
+    "seq": 1,
+    "version": 1
+   }
+  },
+  {
+   "t": "2026-10-18T23:45:56.368Z",
+   "scn": "strict",
+   "msg": "attest #1 0x024ddcbed1 ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "attest",
+   "hash": "0x024ddcbed1248002f5e71d41ccbd612ca13b54c98a4fe0a6c5afa7710e818e62",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-18T23:45:57.393Z",
+   "scn": "strict",
+   "msg": "ratio 10000 bps, covered=false"
+  },
+  {
+   "t": "2026-10-18T23:46:08.833Z",
+   "scn": "challenge",
+   "msg": "attest #1 0xb4835629f7 ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "attest",
+   "hash": "0xb4835629f703e88d80a9befc740c2cacfe3758c0ac6b4771e8578f631867ea18",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-19T00:14:43.682Z",
+   "scn": "twochains",
+   "msg": "the attestation FINALIZED 30.1 min after the wait began"
+  },
+  {
+   "t": "2026-10-19T00:15:07.580Z",
+   "scn": "erc20",
+   "msg": "the attestation FINALIZED 29.9 min after the wait began"
+  },
+  {
+   "t": "2026-10-19T00:16:00.626Z",
+   "scn": "covered",
+   "msg": "the attestation FINALIZED 30.4 min after the wait began"
+  },
+  {
+   "t": "2026-10-19T00:16:04.142Z",
+   "scn": "strict",
+   "msg": "the attestation FINALIZED 30.1 min after the wait began"
+  },
+  {
+   "t": "2026-10-19T00:16:12.930Z",
+   "scn": "covered",
+   "msg": "gate.perform 0x8d9d48c6db ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "perform",
+   "hash": "0x8d9d48c6db6a49de1c69a77164f979d63c6319f2c7dbcda0db78b1d8bbd6c174",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-19T00:16:14.303Z",
+   "scn": "challenge",
+   "msg": "attestation 1 FINALIZED 30.1 min after the wait began"
+  },
+  {
+   "t": "2026-10-19T00:16:25.531Z",
+   "scn": "strict",
+   "msg": "gate.perform (refused) 0x8c530a437d ACCEPTED exec=FINISHED_WITH_ERROR",
+   "fn": "perform",
+   "hash": "0x8c530a437d741d26fcd55c90636664fe1c701f16a1d18eb2eb868a2979fc1d19",
+   "exec": "FINISHED_WITH_ERROR",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-19T00:16:25.532Z",
+   "scn": "strict",
+   "msg": "gate refused: \"The latest attestation shows the reserves are short\"",
+   "reason": "The latest attestation shows the reserves are short"
+  },
+  {
+   "t": "2026-10-19T00:16:48.060Z",
+   "scn": "challenge",
+   "msg": "gate.perform 0xb6d40bbb6f ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "perform",
+   "hash": "0xb6d40bbb6f2c1af0a9d34c6e18888ca48343243b02f4501138d611085393eea8",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-19T00:17:10.730Z",
+   "scn": "challenge",
+   "msg": "challenge 0x5cb3815e5b ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "challenge",
+   "hash": "0x5cb3815e5b1807214094baff9661a7e046bd3590ad238667d7430d2e3dcd085a",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-19T00:47:08.419Z",
+   "scn": "challenge",
+   "msg": "the challenge FINALIZED 30.0 min after the wait began"
+  },
+  {
+   "t": "2026-10-19T00:47:23.083Z",
+   "scn": "challenge",
+   "msg": "gate.perform (refused) 0x665eb6e8cf ACCEPTED exec=FINISHED_WITH_ERROR",
+   "fn": "perform",
+   "hash": "0x665eb6e8cfe7d03ac064c0ba18bfd39a09fc61eea47cd1adbda87bad5b9a08b9",
+   "exec": "FINISHED_WITH_ERROR",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-19T00:47:23.083Z",
+   "scn": "challenge",
+   "msg": "gate refused: \"The latest attestation is disputed\"",
+   "reason": "The latest attestation is disputed"
+  },
+  {
+   "t": "2026-10-19T00:47:24.042Z",
+   "scn": "challenge",
+   "msg": "waiting 30s for the cooldown"
+  },
+  {
+   "t": "2026-10-19T00:48:17.880Z",
+   "scn": "challenge",
+   "msg": "attest #1 0x9dfb1d5c6c ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "attest",
+   "hash": "0x9dfb1d5c6ce6839fecb25476441d2252ad54d95d797c98cca423a6dbbf465302",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  },
+  {
+   "t": "2026-10-19T00:48:18.938Z",
+   "scn": "challenge",
+   "msg": "probe 00000000219ab540356cbb839cbe05303d7705fa raw 92274264815398065334996918, disputed=false",
+   "probe": {
+    "asset": "native",
+    "chain": "ethereum",
+    "decimals": 18,
+    "holder": "00000000219ab540356cbb839cbe05303d7705fa",
+    "label": "challenger's probe",
+    "raw": "92274264815398065334996918",
+    "value": "92274264815398065334996918"
+   }
+  },
+  {
+   "t": "2026-10-19T01:18:13.120Z",
+   "scn": "challenge",
+   "msg": "attestation 2 FINALIZED 29.9 min after the wait began"
+  },
+  {
+   "t": "2026-10-19T01:18:36.385Z",
+   "scn": "challenge",
+   "msg": "gate.perform 0xf6afe9cf89 ACCEPTED exec=FINISHED_WITH_RETURN",
+   "fn": "perform",
+   "hash": "0xf6afe9cf896f9f2f2058fbf3f525581572615ea3f861178a7c9970efdbd6d885",
+   "exec": "FINISHED_WITH_RETURN",
+   "status": "ACCEPTED"
+  }
+ ],
+ "results": {
+  "twochains": {
+   "id": "e2e-v2-twochains",
+   "ratio_bps": 11297,
+   "blocks": {
+    "base": {
+     "hash": "0x142d66c83a97cca91e22e4760c1f053184749bbdf6ccfb035e58b12a9a50a0e0",
+     "number": 52788736
+    },
+    "ethereum": {
+     "hash": "0xab5ba8cfba5476ec838472df3fefa3c4eebfe2ed7fda265657e63520ba8fa2da",
+     "number": 26222784
+    }
+   },
+   "lines": [
+    {
+     "label": "WETH9 on Ethereum",
+     "raw": "2203617493158671487528419"
+    },
+    {
+     "label": "WETH on Base",
+     "raw": "285936635043507736555584"
+    }
+   ]
+  },
+  "erc20": {
+   "id": "e2e-v2-erc20",
+   "ratio_bps": 12466,
+   "reserves": "4605849701290697215004334",
+   "liabilities": "3694669870158255097037854"
+  },
+  "covered": {
+   "id": "e2e-v2-covered",
+   "gate": "0x31e3dB2757aEF9A882bB0642674c03952BA492EB",
+   "ratio_bps": 10000,
+   "block": {
+    "hash": "0xa73857a7406e653ec54d10594dedb06fcb0707133d911062b7da366c8235f429",
+    "number": 26222789
+   },
+   "performed": 1
+  },
+  "strict": {
+   "id": "e2e-v2-strict",
+   "gate": "0x06C4fe89d7Cd8A0342b636823Df208AeAc3bbaD0",
+   "ratio_bps": 10000,
+   "refusal": "The latest attestation shows the reserves are short"
+  },
+  "challenge": {
+   "id": "e2e-v2-challenge",
+   "gate": "0x60bD83Aa0d907E5487fe5cfe1439179e7626aE01",
+   "probe": {
+    "asset": "native",
+    "chain": "ethereum",
+    "decimals": 18,
+    "holder": "00000000219ab540356cbb839cbe05303d7705fa",
+    "label": "challenger's probe",
+    "raw": "92274264815398065334996918",
+    "value": "92274264815398065334996918"
+   },
+   "cleared_by": 2
+  }
+ },
+ "finished": "2026-10-19T01:18:36.385Z"
+}

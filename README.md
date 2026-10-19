@@ -23,6 +23,28 @@ Real data, read by Bradbury validators through three independent providers per c
 - **Two chains**: reserves on Ethereum and Base against one liability, each chain read at its own pinned block (112.97%).
 - **ERC-20 reserves**: stETH held by the wstETH contract against the wstETH supply (124.66%, matching its exchange rate).
 
+## Live evidence (Bradbury, run `v2`, 2026-10-18)
+
+Ballast `0xd1590EBBA44Cd2d00e003053811E47b9d2209668`. Separate wallets for the registrant, the attester and the challenger. Real Ethereum and Base data, read by validators through three independent providers per chain. Every row below is read back from the chain by the script, which fails the run if it is not exactly as expected.
+
+| Scenario | What was checked | Result |
+|---|---|---|
+| covered | WETH9's supply is its own ETH balance, so the ratio must be exactly 100.00%. Then a GateExample acts on it. | 100.00% at Ethereum block 26,222,789; the gate acted (1 time) |
+| strict | The same data against a 101% floor. | 100.00%, recorded short; the gate refused: "The latest attestation shows the reserves are short" |
+| challenge | A covered monitor is challenged with a probe address (the Beacon deposit contract). The gate must refuse as disputed, a newer attestation must show the probe and clear the challenge, and the gate must act again. | gate refused as disputed; attestation 2 read the probe (92,274,264.82 ETH, shown and not counted); challenge cleared by attestation 2; the gate acted again |
+| two chains | Reserves on Ethereum and Base against one liability, each chain at its own pinned block. | 112.97%; Ethereum block 26,222,784, Base block 52,788,736 |
+| ERC-20 reserve | stETH held by the wstETH contract against the wstETH supply. | 124.66%, matching the real stETH-per-wstETH rate |
+
+Every attestation and the challenge reached FINALIZED, about 30 minutes after they were sent. Each gate action ran only after the attestation it relies on had finalized, because a consumer reads finalized state:
+
+- covered: the attestation finalized 30.4 min after
+- strict: the attestation finalized 30.1 min after
+- challenge: attestation 1 finalized 30.1 min after; the challenge finalized 30.0 min after; attestation 2 finalized 29.9 min after
+- twochains: the attestation finalized 30.1 min after
+- erc20: the attestation finalized 29.9 min after
+
+The full event log, with every transaction hash, is in `scripts/e2e-log-v2.json`.
+
 ## Using a monitor from another contract
 
 ```python
