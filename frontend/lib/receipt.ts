@@ -1,3 +1,4 @@
+import { txExecName, txStatusName } from "./tx.ts";
 /**
  * What a transaction receipt says about whether the contract actually ran. A wallet shows a transaction as "confirmed" once it is
  * on chain; that says nothing about the GenLayer execution. Returns a plain explanation when the write did NOT take effect, or null.
@@ -5,8 +6,8 @@
 const TIMED_OUT = ["LEADER_TIMEOUT", "VALIDATORS_TIMEOUT", "UNDETERMINED", "CANCELED"];
 
 export function failedReceiptMessage(receipt: any, functionName: string, txHash: string): string | null {
-  const status = String(receipt?.statusName ?? "");
-  const exec = String(receipt?.txExecutionResultName ?? "");
+  const status = txStatusName(receipt);
+  const exec = txExecName(receipt);
   if (TIMED_OUT.includes(status) || exec === "NOT_VOTED" || exec === "IDLE") {
     return `Validators did not complete ${functionName} (${status || exec}). Nothing was recorded, even though your wallet may show the transaction as confirmed. This happens now and then on the testnet: try again. Transaction ${txHash}.`;
   }

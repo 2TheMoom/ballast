@@ -1,4 +1,4 @@
-// Live end to end run of Ballast and GateExample on Bradbury, against real Ethereum and Base data, with separate wallets.
+// Live end to end run of Ballast and GateExample on Bradbury (or Studionet with NETWORK=studionet), against real Ethereum and Base data, with separate wallets.
 //   BALLAST=0x.. RUN=v2 node scripts/e2e.mjs        writes scripts/e2e-log-<RUN>.json
 //
 // Scenarios (each its own monitor, run concurrently):
@@ -9,7 +9,11 @@
 //   twochains  reserves on Ethereum and Base against one liability: both chains read at their own pinned blocks
 //   erc20      wstETH: stETH (an ERC-20 reserve) held by the wstETH contract against its supply
 import { readFileSync, writeFileSync } from "fs";
-import { WALLETS, clientFor, plain, read, reader, reasonOf, send, sleep, ts } from "./lib.mjs";
+import { WALLETS, clientFor, plain, read, reader, reasonOf, refusalOf, send, sleep, ts } from "./lib.mjs";
+import { NETWORK, chain } from "./network.mjs";
+
+// Studio cannot answer a contract-to-contract read of finalized state, so there the gate is the variant that reads the latest state.
+const GATE_FILE = chain.isStudio ? "contracts/gate_example_studio.py" : "contracts/gate_example.py";
 
 const B = process.env.BALLAST;
 const RUN = process.env.RUN || Date.now().toString(36);
@@ -21,7 +25,7 @@ const BEACON = "00000000219ab540356cbb839cbe05303d7705fa";
 const clients = { registrant: clientFor("gl-test-1"), attester: clientFor("gl-test-2"), challenger: clientFor("gl-test-3") };
 const addr = Object.fromEntries(Object.entries({ registrant: "gl-test-1", attester: "gl-test-2", challenger: "gl-test-3" }).map(([k, v]) => [k, WALLETS[v].address]));
 
-const LOG = { run: RUN, ballast: B, started: new Date().toISOString(), gates: {}, events: [], results: {} };
+const LOG = { run: RUN, network: NETWORK, gateFile: GATE_FILE, ballast: B, started: new Date().toISOString(), gates: {}, events: [], results: {} };
 const log = (scn, msg, extra) => {
   console.log(`[${ts()}] ${scn.padEnd(10)} ${msg}`);
   LOG.events.push({ t: new Date().toISOString(), scn, msg, ...(extra || {}) });
@@ -63,7 +67,7 @@ async function attestUntil(scn, who, id) {
 // a deploy is a transaction from the registrant's wallet like any other, so it takes its turn in the same queue (two at once collide on the nonce)
 function deployGate(scn, id) {
   return serial("registrant", async () => {
-    const code = new Uint8Array(readFileSync("contracts/gate_example.py"));
+    const code = new Uint8Array(readFileSync(GATE_FILE));
     const hash = await clients.registrant.deployContract({ code, args: [B, id, 86400n] });
     const rec = await clients.registrant.waitForTransactionReceipt({ hash, status: "ACCEPTED", retries: 200, interval: 5000 });
     const address = rec.txDataDecoded?.contractAddress ?? rec.data?.contract_address;
@@ -87,9 +91,11 @@ async function gateRefuses(scn, g, expect) {
     reason = reasonOf(e);
   }
   if (reason === "SIMULATION ACCEPTED") throw new Error(`${scn}: the gate should have refused`);
-  if (expect && !reason.includes(expect)) throw new Error(`${scn}: the gate refused for "${reason}", expected "${expect}"`);
   const r = await tx(scn, "attester", g, "perform", ["should be refused"], "gate.perform (refused)");
   if (ok(r)) throw new Error(`${scn}: the refused call was accepted`);
+  // on Studionet the simulation error carries no reason, but the refused transaction's receipt does
+  reason = refusalOf(r.tx) ?? reason;
+  if (expect && !reason.includes(expect)) throw new Error(`${scn}: the gate refused for "${reason}", expected "${expect}"`);
   log(scn, `gate refused: "${reason}"`, { reason });
   return reason;
 }

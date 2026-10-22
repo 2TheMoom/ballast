@@ -18,6 +18,7 @@ jobs:
       - run: pip install -r requirements.txt
       - run: genvm-lint check contracts/ballast.py
       - run: genvm-lint check contracts/gate_example.py
+      - run: genvm-lint check contracts/gate_example_studio.py
 
   test-contracts:
     name: Direct-mode contract tests

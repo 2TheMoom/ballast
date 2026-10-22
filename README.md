@@ -14,6 +14,8 @@ cannot prove and the threats considered are in [docs/ARCHITECTURE.md](docs/ARCHI
 
 Live app: **https://ballast-frontend.vercel.app**
 
+Also deployed on **Studionet**, the hosted Studio network (chain 61999), from the same `ballast.py`; see [Studionet](#studionet) below.
+
 ## What a reading looks like
 
 Real data, read by Bradbury validators through three independent providers per chain:
@@ -44,6 +46,33 @@ Every attestation and the challenge reached FINALIZED, about 30 minutes after th
 - erc20: the attestation finalized 29.9 min after
 
 The full event log, with every transaction hash, is in `scripts/e2e-log-v2.json`.
+
+## Studionet
+
+The same `contracts/ballast.py`, byte for byte, is deployed on Studionet (chain ID 61999), checked by `NETWORK=studionet node scripts/verify-deployed.mjs` (output in `scripts/verify-deployed-studionet.txt`; the Bradbury check is `scripts/verify-deployed.txt`).
+
+| Contract | Address |
+|---|---|
+| Ballast | [`0x4477105a01b7ddbCc449837Ec8Ed9900EbFD2a08`](https://explorer-studio.genlayer.com/address/0x4477105a01b7ddbCc449837Ec8Ed9900EbFD2a08) |
+| GateExample (Studionet variant), pinned to the `e2e-studio2-covered` monitor | [`0x3d08946DCFd168335eFFf530862B1998aDD8C0E6`](https://explorer-studio.genlayer.com/address/0x3d08946DCFd168335eFFf530862B1998aDD8C0E6) |
+
+**One difference, and why.** Studio cannot answer a contract-to-contract read of finalized state (the call never returns), so the GateExample there is [`contracts/gate_example_studio.py`](contracts/gate_example_studio.py), which reads Ballast's latest state instead. A test (`tests/direct/test_gate_example_studio.py`) pins the two files to differ only in that read and in the words that said "finalized". GateExample holds no value, so nothing a consumer could lose depends on it, but a real consumer that must act only on final data should do that on a network where the finalized read works, as [`contracts/gate_example.py`](contracts/gate_example.py) does on Bradbury. Ballast itself reads only the web, never another contract, so it is unchanged.
+
+### Live evidence (Studionet, run `studio2`, 2026-10-22)
+
+Same script, same five scenarios, same wallets and real Ethereum and Base data; every row is read back from the chain and the script fails the run if it is not exactly as expected (`NETWORK=studionet BALLAST=0x4477... RUN=studio2 node scripts/e2e.mjs`).
+
+| Scenario | Result |
+|---|---|
+| covered | 100.00% at Ethereum block 26,247,076; the gate acted (1 time) |
+| strict | 100.00%, recorded short; the gate refused: "The latest attestation shows the reserves are short" |
+| challenge | gate refused as disputed; attestation 2 read the probe (92,585,186.05 ETH, shown and not counted); challenge cleared by attestation 2 |
+| two chains | 112.78%; Ethereum block 26,247,073, Base block 52,934,938 |
+| ERC-20 reserve | 124.68% (stETH held by wstETH against the wstETH supply) |
+
+Studio finalizes in under a minute, so every attestation and the challenge reached FINALIZED 0.4 to 0.8 minutes after the wait began, against about 30 minutes on Bradbury. The 10 minute cooldown between a challenge and the next attestation is a rule of the contract and is the same on both networks. On Studionet a refused call's reason is not in the simulation error (it says only "execution failed"); the script reads it from the refused transaction's receipt. The full event log, with every transaction hash, is in `scripts/e2e-log-studio2.json`.
+
+The app can be built for either network (`NEXT_PUBLIC_GENLAYER_CHAIN_ID=61999` for Studionet; the live app on Vercel is the Bradbury build).
 
 ## Live UI run
 

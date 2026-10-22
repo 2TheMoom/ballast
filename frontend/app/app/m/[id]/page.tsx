@@ -20,6 +20,7 @@ import { useAttest, useAttestation, useChallenges, useHistory, useLatest, useMon
 import { usePendingWrites } from "@/lib/finality-store";
 import { cooldownLeft, monitorState } from "@/lib/status";
 import { ago, clock, formatUnits, ratioText, short, withZeroX } from "@/lib/units";
+import { getAddressExplorerUrl } from "@/lib/genlayer/chains";
 
 export default function MonitorPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: raw } = use(params);
@@ -213,7 +214,7 @@ export default function MonitorPage({ params }: { params: Promise<{ id: string }
   .get_latest("${monitor.id}")
 # {exists, covered, disputed, at, max_age, ...}`}
             </div>
-            <span className="b-help">Ballast: <a href={`https://explorer-bradbury.genlayer.com/address/${getContractAddress()}`} target="_blank" rel="noreferrer" className="b-mono">{short(getContractAddress(), 8, 6)}</a></span>
+            <span className="b-help">Ballast: <a href={getAddressExplorerUrl(getContractAddress())} target="_blank" rel="noreferrer" className="b-mono">{short(getContractAddress(), 8, 6)}</a></span>
             {gateOn && <GatePanel address={gateAddress} />}
           </section>
 
@@ -282,7 +283,7 @@ function GatePanel({ address }: { address: string }) {
   return (
     <div style={{ borderTop: "1px solid var(--mist2)", paddingTop: 14, display: "flex", flexDirection: "column", gap: 6, fontSize: 14 }}>
       <strong>Live example: GateExample</strong>
-      <span className="b-help">A contract that only acts while this monitor is covered, fresh and undisputed. <a className="b-mono" href={`https://explorer-bradbury.genlayer.com/address/${address}`} target="_blank" rel="noreferrer">{short(address, 8, 6)}</a></span>
+      <span className="b-help">A contract that only acts while this monitor is covered, fresh and undisputed. <a className="b-mono" href={getAddressExplorerUrl(address)} target="_blank" rel="noreferrer">{short(address, 8, 6)}</a></span>
       {state ? (
         <span>It has acted <strong>{state.performed}</strong> time{state.performed === 1 ? "" : "s"}{state.lastNote ? `. Last note: “${state.lastNote}”` : "."}</span>
       ) : err ? <span className="b-muted">Could not read it: {err}</span> : <span className="b-muted">Reading…</span>}

@@ -2,6 +2,7 @@
 
 import { getTxExplorerUrl } from "@/lib/genlayer/chains";
 import type { WriteProgress } from "@/lib/contracts/types";
+import { NETWORK } from "@/lib/genlayer/network";
 
 const STAGES: { key: WriteProgress["stage"]; label: string }[] = [
   { key: "signing", label: "Sign in wallet" },
@@ -34,7 +35,7 @@ export function TxProgress({ progress, pending }: { progress: (WriteProgress & {
               ? "✓ Finalized, result confirmed"
               : progress.stage === "failed"
                 ? `✗ ${progress.message ?? "Did not finalize as expected"}`
-                : "… Recorded, not final: waiting for finality (about 30 min)"}
+                : `… Recorded, not final: waiting for finality (${NETWORK.finality})`}
           </span>
         )}
       </div>

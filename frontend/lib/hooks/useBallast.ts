@@ -9,6 +9,7 @@ import { success, error, info } from "../utils/toast";
 import { addPendingWrite, settlePendingWrite, takeRestoredWrites, releaseRestoredWrites } from "../finality-store";
 import { failedReceiptMessage } from "../receipt";
 import type { Attestation, Challenge, HistoryPoint, Latest, Monitor, WriteProgress } from "../contracts/types";
+import { NETWORK } from "../genlayer/network";
 
 export type { WriteProgress };
 
@@ -190,7 +191,7 @@ function useWriteAction<TArgs>(action: Runner<TArgs>, messages: Messages, errorT
       refresh();
       setIsPending(false);
       info(`${messages.recorded.title}: recorded, waiting for finality`, {
-        description: `${messages.recorded.description} It counts as final once the transaction finalizes (about 30 minutes on Bradbury).`,
+        description: `${messages.recorded.description} It counts as final once the transaction finalizes (${NETWORK.finality} on ${NETWORK.short}).`,
         duration: 8000,
       });
     },

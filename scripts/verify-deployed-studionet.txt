@@ -1,0 +1,7 @@
+network: studionet (chain id 61999)
+IDENTICAL  Ballast      (contracts/ballast.py)  0x4477105a01b7ddbCc449837Ec8Ed9900EbFD2a08
+           on chain sha256 3978dfc192ef6e961c3eb1785a339fd6432e36a5b4d78f7ae93ae0c4dcca6981  (19504 chars)
+           in repo  sha256 3978dfc192ef6e961c3eb1785a339fd6432e36a5b4d78f7ae93ae0c4dcca6981  (19504 chars)
+IDENTICAL  GateExample  (contracts/gate_example_studio.py)  0x3d08946DCFd168335eFFf530862B1998aDD8C0E6
+           on chain sha256 0cc27d90fee21d239c273e5365da9706ede87939ef60a5e5d37625cfb0e9f0bc  (2921 chars)
+           in repo  sha256 0cc27d90fee21d239c273e5365da9706ede87939ef60a5e5d37625cfb0e9f0bc  (2921 chars)

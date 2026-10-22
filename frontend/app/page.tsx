@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Brand } from "@/components/Brand";
+import { NETWORK } from "@/lib/genlayer/network";
 
 const REPO = "https://github.com/2TheMoom/ballast";
 
@@ -17,7 +18,7 @@ export default function Landing() {
         <section style={{ maxWidth: 1280, margin: "0 auto", padding: "80px 40px 64px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: 56 }}>
           <div style={{ flex: "1 1 480px", minWidth: 0, display: "flex", flexDirection: "column", gap: 24 }}>
             <span style={{ alignSelf: "flex-start", display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid var(--mist)", background: "var(--panel)", borderRadius: 999, padding: "6px 14px", fontSize: 13, color: "var(--slate)" }}>
-              <span className="b-dot" />Live on GenLayer Bradbury Testnet
+              <span className="b-dot" />Live on GenLayer {NETWORK.isStudio ? "Studionet" : "Bradbury Testnet"}
             </span>
             <h1 className="b-head" style={{ fontSize: "clamp(44px, 6vw, 76px)", lineHeight: 0.98, textWrap: "balance" } as React.CSSProperties}>
               Prove the reserves. Don&apos;t trust the blog post.

@@ -4,6 +4,7 @@ import { getEthereumProvider, prepareWalletForWrites } from "../genlayer/client"
 import { decodeAttestation, decodeChallenge, decodeHistory, decodeLatest, decodeMonitor } from "./decode";
 import { failedReceiptMessage, isContractRefusal, refusalReason } from "../receipt";
 import type { Attestation, Challenge, HistoryPoint, Latest, Monitor, WriteProgress, WriteStage } from "./types";
+import { txExecName, txStatusName } from "../tx";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -128,7 +129,7 @@ class Ballast {
 
   async txStatus(hash: string): Promise<{ status: string; exec: string; receipt: any }> {
     const r: any = await this.readClient.getTransaction({ hash });
-    return { status: String(r?.statusName ?? ""), exec: String(r?.txExecutionResultName ?? ""), receipt: r };
+    return { status: txStatusName(r), exec: txExecName(r), receipt: r };
   }
 
   // ---- the write path -------------------------------------------------------------------------

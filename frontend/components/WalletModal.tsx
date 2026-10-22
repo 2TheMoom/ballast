@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useWallet } from "@/lib/genlayer/wallet";
 import { switchToGenLayerNetwork } from "@/lib/genlayer/client";
 import { short } from "@/lib/units";
+import { NETWORK } from "@/lib/genlayer/network";
 
 type Phase = "choose" | "waiting" | "cancelled" | "failed";
 
@@ -49,7 +50,7 @@ export function ConnectDialog({ open, onOpenChange }: { open: boolean; onOpenCha
               </div>
               <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column" }}>
                 <Step state={wallet.address ? "done" : "now"} title="Share your address" detail={wallet.address ? short(wallet.address, 6, 4) : "Approve the connection in MetaMask."} />
-                <Step state={wallet.address ? (wallet.isOnCorrectNetwork ? "done" : "now") : "todo"} title="Switch to GenLayer Bradbury" detail="Chain 4221. Approve the switch in MetaMask." />
+                <Step state={wallet.address ? (wallet.isOnCorrectNetwork ? "done" : "now") : "todo"} title={`Switch to GenLayer ${NETWORK.isStudio ? "Studionet" : "Bradbury"}`} detail={`Chain ${NETWORK.id}. Approve the switch in MetaMask.`} />
                 <Step state={wallet.isConnected && wallet.isOnCorrectNetwork ? "done" : "todo"} title="Ready" detail="" />
               </ol>
               <p className="b-help" style={{ margin: 0 }}>Nothing appeared? Open the MetaMask icon in your browser toolbar. If you declined, you can try again.</p>
@@ -179,7 +180,7 @@ export function WalletControl() {
               <span className="b-muted">Network</span>
               <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span className={`b-dot${wallet.isOnCorrectNetwork ? "" : " warn"}`} />
-                {wallet.isOnCorrectNetwork ? "GenLayer Bradbury, 4221" : "Not GenLayer"}
+                {wallet.isOnCorrectNetwork ? `GenLayer ${NETWORK.isStudio ? "Studionet" : "Bradbury"}, ${NETWORK.id}` : "Not GenLayer"}
               </span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", borderTop: "1px solid var(--mist2)", paddingTop: 6 }}>
@@ -219,7 +220,7 @@ export function NetworkBanner() {
     <div className="b-alert warn" role="alert" style={{ flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: "10px 16px" }}>
       <div style={{ flex: "1 1 240px", display: "flex", flexDirection: "column", gap: 2 }}>
         <strong>Your wallet is on another network.</strong>
-        <span style={{ fontSize: 13 }}>Ballast runs on GenLayer Bradbury (chain 4221). You can read, but register, attest and challenge need it.</span>
+        <span style={{ fontSize: 13 }}>Ballast runs on GenLayer {NETWORK.isStudio ? "Studionet" : "Bradbury"} (chain {NETWORK.id}). You can read, but register, attest and challenge need it.</span>
       </div>
       <button type="button" className="b-btn dark small" disabled={busy} onClick={() => { setBusy(true); switchToGenLayerNetwork().catch(() => undefined).finally(() => setBusy(false)); }}>
         Switch network

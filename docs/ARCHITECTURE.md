@@ -4,6 +4,7 @@ Ballast is an on-chain proof-of-reserves monitor for GenLayer. Two contracts, ne
 
 - `contracts/ballast.py` records monitors and attestations.
 - `contracts/gate_example.py` is the smallest possible consumer: it acts only while a Ballast monitor is covered, fresh and undisputed.
+- `contracts/gate_example_studio.py` is the same consumer for Studionet, which cannot answer a contract-to-contract read of finalized state: it reads the latest state instead (a test pins the two files to differ only in that read).
 
 ## A monitor
 
