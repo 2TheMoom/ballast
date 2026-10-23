@@ -12,7 +12,7 @@ cannot prove and the threats considered are in [docs/ARCHITECTURE.md](docs/ARCHI
 | Ballast | [`0xd1590EBBA44Cd2d00e003053811E47b9d2209668`](https://explorer-bradbury.genlayer.com/address/0xd1590EBBA44Cd2d00e003053811E47b9d2209668) |
 | GateExample, pinned to the `e2e-v2-covered` monitor | [`0x31e3dB2757aEF9A882bB0642674c03952BA492EB`](https://explorer-bradbury.genlayer.com/address/0x31e3dB2757aEF9A882bB0642674c03952BA492EB) |
 
-Live app: **https://ballast-frontend.vercel.app**
+Live app: **https://ballast-studionet.vercel.app** (Studionet, the current network; monitor [`e2e-studio2-covered`](https://ballast-studionet.vercel.app/app/m/e2e-studio2-covered)). The first build, on Bradbury, stays up at https://ballast-frontend.vercel.app for the evidence below.
 
 Also deployed on **Studionet**, the hosted Studio network (chain 61999), from the same `ballast.py`; see [Studionet](#studionet) below.
 
@@ -72,7 +72,7 @@ Same script, same five scenarios, same wallets and real Ethereum and Base data; 
 
 Studio finalizes in under a minute, so every attestation and the challenge reached FINALIZED 0.4 to 0.8 minutes after the wait began, against about 30 minutes on Bradbury. The 10 minute cooldown between a challenge and the next attestation is a rule of the contract and is the same on both networks. On Studionet a refused call's reason is not in the simulation error (it says only "execution failed"); the script reads it from the refused transaction's receipt. The full event log, with every transaction hash, is in `scripts/e2e-log-studio2.json`.
 
-The app can be built for either network (`NEXT_PUBLIC_GENLAYER_CHAIN_ID=61999` for Studionet; the live app on Vercel is the Bradbury build).
+The app is built for either network by `NEXT_PUBLIC_GENLAYER_CHAIN_ID`: https://ballast-studionet.vercel.app is the Studionet build (chain 61999, the Ballast and GateExample addresses above), https://ballast-frontend.vercel.app the Bradbury build.
 
 ## Live UI run
 
