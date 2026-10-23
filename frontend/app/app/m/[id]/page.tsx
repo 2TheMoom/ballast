@@ -21,6 +21,7 @@ import { usePendingWrites } from "@/lib/finality-store";
 import { cooldownLeft, monitorState } from "@/lib/status";
 import { ago, clock, formatUnits, ratioText, short, withZeroX } from "@/lib/units";
 import { getAddressExplorerUrl } from "@/lib/genlayer/chains";
+import { NETWORK } from "@/lib/genlayer/network";
 
 export default function MonitorPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: raw } = use(params);
@@ -207,10 +208,10 @@ export default function MonitorPage({ params }: { params: Promise<{ id: string }
 
           <section aria-labelledby="use-h" className="b-card" style={{ padding: 22 }}>
             <h2 id="use-h" style={{ fontSize: 20 }}>Require this in a contract</h2>
-            <p className="b-help" style={{ margin: 0 }}>Read it from finalized state and decide on your own clock. The record is small on purpose.</p>
+            <p className="b-help" style={{ margin: 0 }}>{NETWORK.isStudio ? "Studionet cannot answer a contract-to-contract read of finalized state, so read the latest state here and decide on your own clock. On Bradbury, read finalized state." : "Read it from finalized state and decide on your own clock."} The record is small on purpose.</p>
             <div className="b-mono" style={{ background: "var(--ink)", color: "#dce4fa", borderRadius: 10, padding: "12px 14px", fontSize: 12, lineHeight: 1.6, overflowX: "auto", whiteSpace: "pre" }}>
 {`gl.get_contract_at(BALLAST)
-  .view(state=StorageType.LATEST_FINAL)
+  .view(${NETWORK.isStudio ? "" : "state=StorageType.LATEST_FINAL"})
   .get_latest("${monitor.id}")
 # {exists, covered, disputed, at, max_age, ...}`}
             </div>
